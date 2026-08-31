@@ -21,7 +21,8 @@ function shutdown() {
 
 trap shutdown SIGTERM
 
-echo "Refreshing namenode include-list again"
+# Refresh the  NN include-list so this DN is allowed to register.
+echo "Refreshing namenode include-list"
 $HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
 
 exec $HADOOP_HOME/bin/hdfs datanode 2>&1 | tee -a $HADOOP_LOG_FILE &
