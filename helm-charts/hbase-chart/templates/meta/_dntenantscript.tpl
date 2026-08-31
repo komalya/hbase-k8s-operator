@@ -33,7 +33,13 @@ sleep 1
 
 trap shutdown SIGTERM
 
+# Refresh the  NN include-list so this DN is allowed to register.
+# 5s gap between the two calls lets the first refresh settle before the second.
 echo "Refreshing namenode include-list"
+$HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
+echo "Sleeping 5s before next refresh"
+sleep 5
+echo "Refreshing namenode include-list again"
 $HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
 
 exec $HADOOP_HOME/bin/hdfs datanode 2>&1 | tee -a $HADOOP_LOG_FILE &
