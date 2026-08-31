@@ -20,6 +20,10 @@ function shutdown() {
 }
 
 trap shutdown SIGTERM
+
+echo "Refreshing namenode include-list"
+$HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
+
 exec $HADOOP_HOME/bin/hdfs datanode 2>&1 | tee -a $HADOOP_LOG_FILE &
 PID=$!
 

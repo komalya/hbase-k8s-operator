@@ -32,6 +32,10 @@ curl -sX GET http://127.0.0.1:8802/v1/configmaps/$HADOOP_CONF_NAME | jq '.data |
 sleep 1
 
 trap shutdown SIGTERM
+
+echo "Refreshing namenode include-list"
+$HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
+
 exec $HADOOP_HOME/bin/hdfs datanode 2>&1 | tee -a $HADOOP_LOG_FILE &
 PID=$!
 
