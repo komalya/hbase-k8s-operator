@@ -35,7 +35,6 @@
     fi
 
     # Refresh the  NN include-list so this DN is allowed to register.
-    # 5s sleep after the call lets the first refresh settle before the second in dn startup script.
     echo "Refreshing namenode include-list"
     $HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
 
