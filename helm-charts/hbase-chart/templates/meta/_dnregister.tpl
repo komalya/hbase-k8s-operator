@@ -38,8 +38,6 @@
     # 5s sleep after the call lets the first refresh settle before the second in dn startup script.
     echo "Refreshing namenode include-list"
     $HADOOP_HOME/bin/hdfs dfsadmin -refreshNodes || true
-    echo "Sleeping 5s before next refresh"
-    sleep 5
 
   cpuLimit: "2"
   memoryLimit: "1Gi"
